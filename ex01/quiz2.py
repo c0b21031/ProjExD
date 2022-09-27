@@ -1,6 +1,6 @@
 import random
 import datetime
-all_alphabet_num=26
+
 alphabet_num=10
 abs_alphabet_num=3
 
