@@ -24,7 +24,7 @@ entry=tk.Entry(root, width=10, font=(", 40"), justify="right") # 練習4
 entry.grid(row=0, column=0, columnspan=3)
 
 r,c=1,0
-numbers=list((7,8,9,4,5,6,1,2,3))
+numbers=[7,8,9,4,5,6,1,2,3]
 operators=["+","-","*","/"]
 for i,num in enumerate(numbers+operators,1):
     btn=tk.Button(root,text=f"{num}",font=("",30), width=4,height=2)
