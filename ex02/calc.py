@@ -14,15 +14,18 @@ def click_equal(event):
     entry.delete(0, tk.END)
     entry.insert(tk.END, res) # 練習7
 
+def click_delete(event):
+    entry.delete(0,tk.END)
+
 root=tk.Tk()
-root.geometry("300x500")
+root.geometry("400x700")
 
 entry=tk.Entry(root, width=10, font=(", 40"), justify="right") # 練習4
 entry.grid(row=0, column=0, columnspan=3)
 
-r,c=0,0
-numbers=list(range(9, -1, -1))
-operators=["+"]
+r,c=1,0
+numbers=list((7,8,9,4,5,6,1,2,3))
+operators=["+","-","*","/"]
 for i,num in enumerate(numbers+operators,1):
     btn=tk.Button(root,text=f"{num}",font=("",30), width=4,height=2)
     btn.bind("<1>", click_number)
@@ -34,6 +37,10 @@ for i,num in enumerate(numbers+operators,1):
 
 btn = tk.Button(root, text=f"=", font=("", 30), width=4, height=2)
 btn.bind("<1>", click_equal)
-btn.grid(row=r, column=c)
+btn.grid(row=5, column=2)
+
+btn=tk.Button(root,text=f"AC", font=("", 30), width=4, height=2)
+btn.bind("<1>",click_delete)
+btn.grid(row=r,column=c)
 
 root.mainloop()
