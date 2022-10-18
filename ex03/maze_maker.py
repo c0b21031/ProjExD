@@ -22,12 +22,21 @@ def make_maze(yoko, tate):
             else:     rnd = random.randint(0, 3)
             maze_lst[y+YP[rnd]][x+XP[rnd]] = 1
 
+    m=random.randint(1,tate-1)
+    n=random.randint(1,yoko-1)
+
+    while maze_lst[m][n]==1:
+        maze_lst[m][n]=2
+
     return maze_lst
 
 def show_maze(canvas, maze_lst):
-    color = ["white", "gray"]
+    color = ["white", "gray","red"]
     for y in range(len(maze_lst)):
         for x in range(len(maze_lst[y])):
-            canvas.create_rectangle(x*100, y*100, x*100+100, y*100+100, 
+            canvas.create_rectangle(x*50, y*50, x*50+50, y*50+50, 
                                     fill=color[maze_lst[y][x]])
+            
+
+    
    

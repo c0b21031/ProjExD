@@ -21,7 +21,7 @@ def main_proc():
     if key == "Right":
         mx += 1
     if maze_lst[my][mx]==0:
-        cx,cy=mx*100+50,my*100+50
+        cx,cy=mx*50+25,my*50+25
     else:
         if key == "Up":
             my += 1
@@ -42,13 +42,13 @@ if __name__=="__main__":
     canv=tk.Canvas(root,width=1500,height=900,bg="black")
     canv.pack()
 
-    maze_lst=mm.make_maze(15,9)
+    maze_lst=mm.make_maze(30,18)
     mm.show_maze(canv,maze_lst)
 
     tori = tk.PhotoImage(file="./ex03/fig/5.png") 
     
     mx, my = 1, 1
-    cx, cy = mx*100+50, my*100+50
+    cx, cy = mx*50+25, my*50+25
     
     canv.create_image(cx, cy, image=tori, tag="tori")
 
