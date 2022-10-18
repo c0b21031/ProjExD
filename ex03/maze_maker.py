@@ -25,8 +25,7 @@ def make_maze(yoko, tate):
     m=random.randint(1,tate-1)
     n=random.randint(1,yoko-1)
 
-    while maze_lst[m][n]==1:
-        maze_lst[m][n]=2
+    maze_lst[n][m]=2
 
     return maze_lst
 
