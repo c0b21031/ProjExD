@@ -23,7 +23,9 @@ def main_proc():
 
     if maze_lst[my][mx]==0:
         cx,cy=mx*50+25,my*50+25
-    elif maze_lst[my][mx]==1:
+    elif maze_lst[my][mx]==2:
+        mx,my=1,1
+    else:
         if key == "Up":
             my += 1
         if key == "Down":
