@@ -23,17 +23,18 @@ def main_proc():
 
     if maze_lst[my][mx]==0:
         cx,cy=mx*50+25,my*50+25
+        
     elif maze_lst[my][mx]==2:
         mx,my=1,1
-    else:
-        if key == "Up":
+
+    elif key == "Up":
             my += 1
-        if key == "Down":
-            my -= 1
-        if key == "Left":
-            mx += 1
-        if key == "Right":
-            mx -= 1
+    elif key == "Down":
+        my -= 1
+    elif key == "Left":
+        mx += 1
+    elif key == "Right":
+        mx -= 1
 
     canv.coords("tori", cx, cy)
     root.after(100, main_proc)
