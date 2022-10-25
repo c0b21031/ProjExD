@@ -56,7 +56,6 @@ def main():
     bomb2_rct.centery = randint(0, scrn_rct.height)
 
     vx,vy=+1,+1
-    #背景画像のbilt
     clock=pg.time.Clock()
     while True:
         scrn_sfc.blit(bg_sfc,bg_rct)
@@ -82,7 +81,7 @@ def main():
             if key_states[pg.K_DOWN]:
                 tori_rct.centery -= 1   
 
-        scrn_sfc.blit(tori_sfc, tori_rct)
+        scrn_sfc.blit(tori_sfc, tori_rct) #背景画像のbilt
 
         yoko,tate=check_bound(bomb_rct, scrn_rct)
         yoko,tate=check_bound(bomb2_rct,scrn_rct)
@@ -90,10 +89,8 @@ def main():
         vy *= tate
         bomb_rct.move_ip(vx,vy)
         bomb2_rct.move_ip(vx,vy)
-        scrn_sfc.blit(bomb_sfc,bomb_rct)
-        scrn_sfc.blit(bomb2_sfc,bomb2_rct)
-
-        
+        scrn_sfc.blit(bomb_sfc,bomb_rct)#爆弾1のbalit
+        scrn_sfc.blit(bomb2_sfc,bomb2_rct)#爆弾2のblit
 
         if tori_rct.colliderect(bomb_rct) or tori_rct.colliderect(bomb2_rct): # こうかとんrctが爆弾1rctか爆弾2rctと重なったら
             return
