@@ -13,6 +13,24 @@ class Screen:
     def blit(self):
         self.sfc.blit(self.bgi_sfc, self.bgi_rct)
 
+<<<<<<< HEAD
+=======
+class Speed:
+    key_s = {
+        pg.K_1:  10,
+        pg.K_2:  20,
+    }
+    def __init__(self,):
+        self.spe=0
+
+    def update(self, scr:Screen):
+        key_states = pg.key.get_pressed()
+        for key, sp in Speed.key_s.items():
+            if key_states[key]:
+                self.spe += sp[0]
+        return self.spe
+
+>>>>>>> add_func
 class Bird:
     key_delta = {
         pg.K_UP:    [0, -1],
@@ -20,12 +38,20 @@ class Bird:
         pg.K_LEFT:  [-1, 0],
         pg.K_RIGHT: [+1, 0],
     }
+<<<<<<< HEAD
+=======
+    gun_offset = -11
+>>>>>>> add_func
 
     def __init__(self, img, zoom, xy):
         sfc = pg.image.load(img) # "fig/6.png"
         self.sfc = pg.transform.rotozoom(sfc, 0, zoom) # 2.0
         self.rct = self.sfc.get_rect()
         self.rct.center = xy
+<<<<<<< HEAD
+=======
+        self.facing = -1
+>>>>>>> add_func
 
     def blit(self, scr:Screen):
         scr.sfc.blit(self.sfc, self.rct)
@@ -34,11 +60,19 @@ class Bird:
         key_states = pg.key.get_pressed()
         for key, delta in Bird.key_delta.items():
             if key_states[key]:
+<<<<<<< HEAD
                 self.rct.centerx += delta[0]
                 self.rct.centery += delta[1]
                 if check_bound(self.rct, scr.rct) != (+1, +1):
                     self.rct.centerx -= delta[0]
                     self.rct.centery -= delta[1]
+=======
+                self.rct.centerx += delta[0] + spd.spe
+                self.rct.centery += delta[1] + spd.spe
+                if check_bound(self.rct, scr.rct) != (+1, +1):
+                    self.rct.centerx -= delta[0] - self.spe
+                    self.rct.centery -= delta[1] - self.spe
+>>>>>>> add_func
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
 class Bomb:
@@ -61,6 +95,10 @@ class Bomb:
         self.vy *= tate
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> add_func
 def check_bound(obj_rct, scr_rct):
     """
     obj_rct：こうかとんrct，または，爆弾rct
@@ -80,7 +118,17 @@ def main():
     
     kkt = Bird("C:/Users/admin/Documents/ProjExD2022/fig/5.png", 2.0, (900, 400))
 
+<<<<<<< HEAD
     bkd = Bomb((255, 0, 0), 10, (+1, +1), scr)
+=======
+    bkd = Bomb((255, 0, 0), 20, (-1, -1), scr)
+
+    bkd1 = Bomb((255, 0, 0), 20, (+1, +1), scr)
+
+    bkd2 = Bomb((255, 0, 0), 20, (+1, +1), scr)
+
+    spd=Speed()
+>>>>>>> add_func
 
     clock = pg.time.Clock()
     
@@ -90,10 +138,21 @@ def main():
         for event in pg.event.get(): 
             if event.type == pg.QUIT:
                 return
+<<<<<<< HEAD
 
         kkt.update(scr)
 
         bkd.update(scr)
+=======
+            
+
+        
+
+        kkt.update(scr)
+        bkd.update(scr)
+        bkd1.update(scr)
+        bkd2.update(scr)
+>>>>>>> add_func
 
         # 練習8
         if kkt.rct.colliderect(bkd.rct): # こうかとんrctが爆弾rctと重なったら
