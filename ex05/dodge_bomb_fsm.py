@@ -2,6 +2,7 @@ import pygame as pg
 import sys
 from random import randint
 
+#背景を表示するクラス
 class Screen:
     def __init__(self,title,wh,bgimage):
         pg.display.set_caption(title)
@@ -13,12 +14,11 @@ class Screen:
     def blit(self):
         self.sfc.blit(self.bgi_sfc, self.bgi_rct)
 
-
+#こうかとんの移動速度を上げるクラス
 class Speed:
-    key_s = {
-        pg.K_1:  10,
-        pg.K_2:  20,
-    }
+    key_s = {pg.K_1:  10, 
+             pg.K_2:  20}
+
     def __init__(self,):
         self.spe=0
 
@@ -26,10 +26,10 @@ class Speed:
         key_states = pg.key.get_pressed()
         for key, sp in Speed.key_s.items():
             if key_states[key]:
-                self.spe += sp[0]
+                self.spe += sp
         return self.spe
 
-
+#こうかとんに関するクラス
 class Bird:
     key_delta = {
         pg.K_UP:    [0, -1],
@@ -58,10 +58,11 @@ class Bird:
                 self.rct.centerx += delta[0] + spd.spe
                 self.rct.centery += delta[1] + spd.spe
                 if check_bound(self.rct, scr.rct) != (+1, +1):
-                    self.rct.centerx -= delta[0] - self.spe
-                    self.rct.centery -= delta[1] - self.spe
+                    self.rct.centerx -= delta[0] - spd.spe
+                    self.rct.centery -= delta[1] - spd.spe
         self.blit(scr) # =scr.sfc.blit(self.sfc, self.rct)
 
+#爆弾に関するクラス
 class Bomb:
     def __init__(self, color, radius, vxy, scr:Screen):
         self.sfc = pg.Surface((radius*2, radius*2)) # 空のSurface
@@ -95,20 +96,13 @@ def check_bound(obj_rct, scr_rct):
         tate = -1
     return yoko, tate
 
-
 def main():
     scr=Screen("逃げろ!こうかとん",(1600,900),"C:/Users/admin/Documents/ProjExD2022/ex04/pg_bg.jpg")
-    
     kkt = Bird("C:/Users/admin/Documents/ProjExD2022/fig/5.png", 2.0, (900, 400))
 
     bkd = Bomb((255, 0, 0), 20, (-1, -1), scr)
-
     bkd1 = Bomb((255, 0, 0), 20, (+1, +1), scr)
-
     bkd2 = Bomb((255, 0, 0), 20, (+1, +1), scr)
-
-    spd=Speed()
-
 
     clock = pg.time.Clock()
     
@@ -123,6 +117,7 @@ def main():
         bkd.update(scr)
         bkd1.update(scr)
         bkd2.update(scr)
+        spd.update(scr)
 
         # 練習8
         if kkt.rct.colliderect(bkd.rct): # こうかとんrctが爆弾rctと重なったら
@@ -133,6 +128,7 @@ def main():
 
 
 if __name__ == "__main__":
+    spd=Speed()
     pg.init() # 初期化
     main()    # ゲームの本体
     pg.quit() # 初期化の解除
