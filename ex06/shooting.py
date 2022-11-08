@@ -1,3 +1,4 @@
+from turtle import width
 import pygame as pg
 import sys
 from random import randint
@@ -94,12 +95,11 @@ class Enemy: # 敵クラス
         scr.sfc.blit(self.sfc, self.rct)
 
     def update(self,scr:Screen):
-        self.rct.move_ip(self.vx, self.vy) # 敵の移動
+        self.rct.move_ip(self.vx, 0) # 敵の移動
         yoko, tate = check_bound(self.rct, scr.rct) # 壁判定
         self.vx *= yoko
         self.vy *= tate
         self.blit(scr)
-
 
 class Attack: # 攻撃クラス
     def __init__(self, color, radius, vxy, fx, fy):
@@ -148,10 +148,18 @@ def check_bound(obj_rct, scr_rct):
         tate = -1
     return yoko, tate
 
-bg_x=0
 
+def sc_txt(ct):
+    font1=pg.font.Font(None,80)
+    tmr=f"kill : {ct}"
+    txt=font1.render(str(tmr),True,(0,0,0))
+    return txt
+
+
+bg_x=0
+count=0
 def main():
-    global bg_x
+    global bg_x,count
 
     pg.init()
     pg.display.set_caption("シューティングゲームの背景")
@@ -166,7 +174,7 @@ def main():
     bkd = []
 
     # Enemyクラスインスタンスのリスト
-    ene = [Enemy("fig/1.png", 1.0, (randint(0,900),randint(0,900)), (randint(-2,2),randint(-2,2)))]
+    ene = [Enemy("C:/Users/admin/Documents/ProjExD2022/ex05/data/alien1.png", 1.0, (randint(0,320) ,  randint(0,240)), (randint(-2,2),randint(-2,2)))]
 
     # Attackクラスインスタンスのリスト
     atk = []
@@ -193,7 +201,7 @@ def main():
                  
         if randint(0,100) == 0: # ランダムに
             # 敵の追加
-            ene.append(Enemy("fig/1.png", 1.0, (randint(0,900),randint(0,900)),(randint(-2,2),randint(-2,2))))
+            ene.append(Enemy("C:/Users/admin/Documents/ProjExD2022/ex05/data/alien1.png", 1.0, (randint(0,900),randint(0,900)),(randint(-2,2),randint(-2,2))))
 
         for enemy in ene: # enemyはEnemyクラスインスタンス
             enemy.update(scr) # 敵の更新
@@ -203,14 +211,20 @@ def main():
 
             if randint(0,300) == 0: # ランダムに
                 # 爆弾を出す（敵の攻撃）
-                bkd.append(Bomb((255,0,0), 10, (randint(-3,3),randint(-3,3)), enemy.rct.centerx, enemy.rct.centery))
+                bkd.append(Bomb((255,0,0), 10, (randint(-1,1),randint(-1,1 )), enemy.rct.centerx, enemy.rct.centery))
 
             for attack in atk: # attackはAttackクラスインスタンス
                 if enemy.rct.colliderect(attack.rct):
                     # 攻撃が敵にあったたら敵を消す
                     ene.remove(enemy)
+                    count+=1
+                    sc_txt(count)#スコアの更新    
+                    if count>2:
+                        Enemy("ex06/KFC.png", 1.0, (randint(0,900),randint(0,900)),(randint(-1,1),randint(-1,1)))
                     break
-
+        #スコアの表示        
+        scr.sfc.blit(sc_txt(count),(1300,0))
+ 
         for bomb in bkd: # bombは# Bombクラスインスタンス
             bomb.update(scr) # 爆弾の更新
             if bomb.bound == 3: # もし3回跳ね返ったら
